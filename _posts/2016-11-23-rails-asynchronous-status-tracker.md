@@ -4,9 +4,8 @@ published: true
 title: 'Rails: Asynchronous status tracker'
 subtitle: Track your background jobs from javascript!
 ---
-## Introduction
 
-Imagina that you need to do a heavy task on your Rails server. If you're brute enought, you'll throw your logic into your controller, and let that long request stay there for a couple of minutes. Instead, you create an asynchronous job (with [Resque](https://github.com/resque/resque), [Sidekiq](https://github.com/mperham/sidekiq/), [ActiveJob](https://github.com/rails/rails/tree/master/activejob)...).
+Imagine that you need to do a heavy task on your Rails server. If you're brute enough, you'll throw your logic into your controller, and let that long request stay there for a couple of minutes. Instead, you create an asynchronous job (with [Resque](https://github.com/resque/resque), [Sidekiq](https://github.com/mperham/sidekiq/), [ActiveJob](https://github.com/rails/rails/tree/master/activejob)...).
 
 Now everything is great; your tasks are executing in background, and letting those server production threads handle more requests. But... what if you just want to know how much time will it take to process that task? How does the client (*javascript*) know the progress of that well-encapsulated task worker?
 
@@ -54,7 +53,7 @@ class TaskStatus < ActiveRecord::Base
   def set(n)
     self.update! progress: n
   end
-  
+
   def step(n)
     self.increment progress: n
   end
@@ -84,7 +83,7 @@ class JobsController < ApplicationController
     # Don't forget to return information about the task object:
     render status: :created, json: task_status
   end
-  
+
   # GET /jobs/:id/poll
   def poll
     # Just return the task object. You may want to place this endpoint into another controller,
@@ -92,9 +91,9 @@ class JobsController < ApplicationController
     # Note that `task_status` will retrieve the status object from the database.
     render status: :ok, json: task_status
   end
-  
+
   private
-  
+
   # If params[:id] is present, search the object on the database. Otherwise, create a new one!
   def task_status
     @task_status ||= params[:id].present? ? TaskStatus.find(params[:id]) : TaskStatus.create!(progress: 0)
@@ -110,7 +109,7 @@ resources :jobs do
     post :work
     get :index
   end
-  
+
   member do
     get :poll
   end
@@ -122,7 +121,7 @@ end
 The worker or background job should update the `TaskStatus` object at will. For example:
 
 ````rb
-class ExampleJob < ActiveJob::Base 
+class ExampleJob < ActiveJob::Base
   queue_as :default
 
   # This job will take 10 seconds to be fully performed!
@@ -131,7 +130,7 @@ class ExampleJob < ActiveJob::Base
       sleep 0.1
       task_status.step 1
     end
-  end 
+  end
 end
 ````
 
@@ -147,7 +146,7 @@ end
 
 ### Views
 
-Finally, setup some javascript to use our controller's endpoints. For example, in your index view:
+Finally, setup some *javascript* to use our controller's endpoints. For example, in your index view:
 
 ````erb
 <%= button_tag 'Work!', id: 'request-button' %>
@@ -167,7 +166,7 @@ $(function() {
   // When pressing the "Work!" button ...
   $('#request-button').click(function() {
     $(this).prop('disabled', true);
-  
+
     // ... request a job by using an ajax request.
     $.ajax({
       method: 'POST',
@@ -175,7 +174,7 @@ $(function() {
       contentType: 'json'
     }).done(function(data) {
       task_status = data;
-      // When the request finishes, start polling the status 
+      // When the request finishes, start polling the status
       setTimeout(updateStatus, POLL_INTERVAL);
     });
   });
@@ -188,7 +187,7 @@ $(function() {
       contentType: 'json'
     }).done(function(data) {
       task_status = data;
-   
+
       // Done!
       if(task_status.progress == 100) {
         $('#progress').text('Done!');
@@ -208,5 +207,4 @@ Now, run that server, go to your view, press that button, and the background tas
 
 ## Conclusion
 
-Now, there is no need to use websockets or complex solutions to create a basic status tracking system. Almost *everything* is possible with simple *HTTP* requests. However, polling on web applications aren't always a good idea; those constant requests generate overhead on the server side.
-
+Now, there is no need to use *web-sockets* or complex solutions to create a basic status tracking system. Almost *everything* is possible with simple *HTTP* requests. However, polling on web applications aren't always a good idea; those constant requests generate overhead on the server side.
