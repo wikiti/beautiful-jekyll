@@ -1,16 +1,32 @@
 ---
 layout: page
 title: About me
-subtitle: Why you'd want to go on a date with me
+subtitle: Trust me, I'm an Engineer
 ---
 
-My name is Inigo Montoya. I have the following qualities:
+## About me
 
-- I rock a great mustache
-- I'm extremely loyal to my family
+It's not about you, it's about me. My name is Daniel Herzog, and I'm:
 
-What else do you need?
+- A great non-DRY software engineer.
+- A videogame pasionate.
+- A software engineer.
+- Contributor to the OpenSource world.
+- A software engineer.
+- A software engineer.
 
-### my history
+Did I tell you that I'm a software engineer?
 
-To be honest, I'm having some trouble remembering right now, so why don't you just watch [my movie](http://en.wikipedia.org/wiki/The_Princess_Bride_%28film%29) and it will answer **all** your questions.
+Joking apart, I'm a junior/senior software developer who is specialized on web applications
+(front-end and back-end) and interactive software. I'm currently leaving on Spain (¡hola amigo!),
+but, if you're searching for paella and flamenco, this blog isn't for you.
+
+## About my work
+
+Everything (or at least the most important) things that I've done are available on my [project's page](http://www.danielherzog.es/es/projects).
+Check it out if you want to see some cool stuff!
+
+## About you
+
+Now it's about you! If you want to contact me to talk me about yourself, please, feel free to email me by
+using the footer link of this blog.

@@ -13,8 +13,10 @@ module Jekyll
       self.data['title'] = "#{tag_title_prefix}#{tag}#{tag_title_suffix}"
     end
   end
+
   class TagGenerator < Generator
     safe true
+
     def generate(site)
       if site.layouts.key? 'tag_index'
         dir = site.config['tag_dir'] || 'tag'
@@ -23,6 +25,7 @@ module Jekyll
         end
       end
     end
+
     def write_tag_index(site, dir, tag)
       index = TagIndex.new(site, site.source, dir, tag)
       index.render(site.layouts, site.site_payload)

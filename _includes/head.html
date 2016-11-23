@@ -86,7 +86,10 @@
   {% elsif site.avatar %}
   <meta property="og:image" content="{{ site.url }}{{ site.avatar }}" />
   {% endif %}
-  
+
+  {% if site.favicon %}
+  <link rel="icon" type="image/png" href="{{ site.favicon }}" />
+  {% endif %}
 
   <!-- Twitter summary cards -->
   <meta name="twitter:card" content="summary" />
