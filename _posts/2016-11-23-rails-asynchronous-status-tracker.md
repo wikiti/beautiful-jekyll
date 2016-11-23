@@ -1,6 +1,6 @@
 ---
 layout: post
-published: true
+published: false
 title: 'Rails: Asynchronous status tracker'
 subtitle: Track your background jobs from javascript!
 ---
