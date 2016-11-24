@@ -11,7 +11,7 @@ Now, this can be implemented (and refactored) with the following block of javasc
 
 ```js
 var ByteSize = function(bytes) {
-  "use strict";
+  'use strict';
 
   // Constants
   UNITS = [
