@@ -88,7 +88,3 @@ console.log(data.humanize());     // 1.23 MB
 data.set(1234, 'MegaBytes');
 console.log(data.humanize());     // 1.23 GB
 ```
-
-Next step: Create a conversor!
-
-TODO
