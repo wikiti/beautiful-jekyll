@@ -34,7 +34,6 @@ var ByteSize = function(bytes, size) {
       unit = UNITS.find(function(u) {
         return u.short.toLowerCase() == unit || u.long.toLowerCase() == unit;
       });
-      
       if(!unit) throw('Invalid unit name: ' + unit);
       bytes_value = bytes * unit.factor;
     }
