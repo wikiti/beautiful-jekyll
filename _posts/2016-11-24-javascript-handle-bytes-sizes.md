@@ -29,7 +29,7 @@ var HumanSizes = function(bytes) {
   
   this.human = function() {
     var unit = UNITS[0];
-    var value = this.bytes_value;
+    var value = bytes_value;
     
     for(i = 1; i < UNITS.length && value * FACTOR >= 1; i++) {
       value *= FACTOR;+
