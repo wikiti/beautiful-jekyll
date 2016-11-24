@@ -41,7 +41,7 @@ You'll want to add some methods and logic to your model. Be creative!
 ````ruby
 class TaskStatus < ActiveRecord::Base
   # 0 means not done, 50 means half done, 100 means done
-  validate :progress, presence: true, inclussion: { within: 0..100 }
+  validate :progress, presence: true, inclusion: { within: 0..100 }
 
   # You'll probably want to use a better naming system, or move this code
   # into a different context, like a helper.
