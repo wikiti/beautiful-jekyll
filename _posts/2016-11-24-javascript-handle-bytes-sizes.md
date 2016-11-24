@@ -1,7 +1,9 @@
 ---
 layout: post
 published: false
-title: 'Javascript: handle bytes sizes'
+title: 'Javascript: Handle bytes sizes'
+date: '2016-11-24 12:45'
+subtitle: Because bytes are too small
 ---
 Imagine that you're using bytes sizes in your javascript code. For example, handling files. Most libraries use bytes as the common unit to manage sizes. However, what if you want to *humanize* those values into your view? Instead of printing *1234567899 Bytes*, you should print **1,23 GigaBytes**.
 
@@ -9,6 +11,7 @@ Now, this can be implemented (and refactored) with the following block of javasc
 
 ```js
 var ByteSize = function(bytes) {
+  // Constants
   UNITS = [
     { short: 'B', long: 'Bytes' },
     { short: 'kB', long: 'kiloBytes' },
@@ -16,11 +19,14 @@ var ByteSize = function(bytes) {
     { short: 'GB', long: 'GigaBytes' },
     { short: 'TB', long: 'TeraBytes' },
   ]
+  UNITS_SEPARATOR = ' ';
   FACTOR = 1e3;
   DECIMALS = 2;
-
+  
+  // Private vars
   bytes_value = bytes;
   
+  // Public methods
   this.update = function(bytes) {
     bytes_value = bytes;
   };
@@ -34,14 +40,14 @@ var ByteSize = function(bytes) {
       unit = UNITS[i];
     }
 
-    return { bytes: value, unit: unit };
+    return { value: value, unit: unit };
   };
 
   this.humanize = function(long) {
     var data = this.human();
     var unit = long ? data.unit.long : data.unit.short;
     // Round and return as a string
-    return (Math.round(data.bytes * 10**(DECIMALS + 1)) / 10**DECIMALS) + ' ' + unit;
+    return (Math.round(data.value * 10**(DECIMALS + 1)) / 10**DECIMALS) + UNITS_SEPARATOR + unit;
   };
   
   this.Bytes = function() {
@@ -66,10 +72,20 @@ var ByteSize = function(bytes) {
 };
 ```
 
-And can be used like this:
+Which can be used like this:
 
 ```js
 var data = new ByteSize(123456789);
 
-console.log(data.bytes()); // 
+console.log(data.Bytes());        // 123456789
+console.log(data.kiloBytes());    // 123456.789
+console.log(data.MegaBytes());    // 123.456789
+console.log(data.TeraBytes());    // 0.123456789
+
+console.log(data.human());        // { value: 123.456789, unit: { short: 'MB', long: 'MegaBytes' } }
+console.log(data.humanize());     // 123.45 MB
+console.log(data.humanize(true)); // 123.45 MegaBytes
+
+data.update(1234);
+console.log(data.humanize());     // 1.23 kB
 ```
