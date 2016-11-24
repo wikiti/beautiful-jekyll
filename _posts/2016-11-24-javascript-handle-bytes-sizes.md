@@ -10,35 +10,45 @@ Imagine that you're using bytes sizes in your javascript code. For example, hand
 Now, this can be implemented (and refactored) with the following block of javascript:
 
 ```js
-var ByteSize = function(bytes) {
+var ByteSize = function(bytes, size) {
   'use strict';
 
   // Constants
   UNITS = [
     { short: 'B', long: 'Bytes', factor: 1 },
-    { short: 'kB', long: 'kiloBytes', factor: 1 / 1e3 },
-    { short: 'MB', long: 'MegaBytes', factor: 1 / 1e6 },
-    { short: 'GB', long: 'GigaBytes', factor: 1 / 1e9 },
-    { short: 'TB', long: 'TeraBytes', factor: 1 / 1e12 },
+    { short: 'kB', long: 'kiloBytes', factor: 1e3 },
+    { short: 'MB', long: 'MegaBytes', factor: 1e6 },
+    { short: 'GB', long: 'GigaBytes', factor: 1e9 },
+    { short: 'TB', long: 'TeraBytes', factor: 1e12 },
   ]
   UNITS_SEPARATOR = ' ';
   DECIMALS = 2;
   
   // Private vars
-  bytes_value = null;
+  var bytes_value = null;
   
   // Public methods
-  this.set = function(bytes, size) {
-    bytes_value = bytes;
-    // TODO: Use `size`
+  this.set = function(bytes, unit) {
+    if(unit) {
+      unit = unit.toLowerCase();
+      unit = UNITS.find(function(u) {
+        return u.short.toLowerCase() == unit || u.long.toLowerCase() == unit;
+      });
+      
+      if(!unit) throw('Invalid unit name: ' + unit);
+      bytes_value = bytes * unit.factor;
+    }
+    else {
+      bytes_value = bytes;
+    }
   };
   
   this.human = function() {
     var unit = UNITS[0];
     var value = bytes_value;
     
-    for(i = 1; i < UNITS.length && value * UNITS[i].factor >= 1; i++) {
-      value *= UNITS[i].factor;
+    for(var i = 1; i < UNITS.length && value / UNITS[i].factor >= 1; i++) {
+      value /= UNITS[i].factor;
       unit = UNITS[i];
     }
 
@@ -61,7 +71,7 @@ var ByteSize = function(bytes) {
   });
   
   // Initialize
-  this.set(bytes);
+  this.set(bytes, size);
 };
 ```
 
@@ -75,7 +85,7 @@ console.log(data.kiloBytes());    // 123456.789
 console.log(data.MegaBytes());    // 123.456789
 console.log(data.TeraBytes());    // 0.123456789
 
-console.log(data.human());        // { value: 123.456789, unit: { short: 'MB', long: 'MegaBytes', factor: 0.000001 } }
+console.log(data.human());        // { value: 123.456789, unit: { short: 'MB', long: 'MegaBytes', factor: 1000000 } }
 console.log(data.humanize());     // 123.45 MB
 console.log(data.humanize(true)); // 123.45 MegaBytes
 
