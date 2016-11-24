@@ -3,6 +3,7 @@ layout: post
 published: true
 title: 'Rails: How to reivent the wheel'
 subtitle: That's how it shouldn't be made
+date: 2016-11-24T11:00:00.000Z
 ---
 Today, I saw the following code snippet in some source code:
 
