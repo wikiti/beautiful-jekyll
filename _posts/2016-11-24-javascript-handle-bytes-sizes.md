@@ -89,3 +89,7 @@ console.log(data.humanize(true)); // 123.45 MegaBytes
 data.update(1234);
 console.log(data.humanize());     // 1.23 kB
 ```
+
+Next step: Create a conversor!
+
+TODO
