@@ -25,11 +25,12 @@ var ByteSize = function(bytes) {
   DECIMALS = 2;
   
   // Private vars
-  bytes_value = bytes;
+  bytes_value = null;
   
   // Public methods
-  this.update = function(bytes) {
+  this.set = function(bytes, size) {
     bytes_value = bytes;
+    // TODO: Use `size`
   };
   
   this.human = function() {
@@ -58,6 +59,9 @@ var ByteSize = function(bytes) {
       return bytes_value * unit.factor;
     };
   });
+  
+  // Initialize
+  this.set(bytes);
 };
 ```
 
@@ -75,8 +79,14 @@ console.log(data.human());        // { value: 123.456789, unit: { short: 'MB', l
 console.log(data.humanize());     // 123.45 MB
 console.log(data.humanize(true)); // 123.45 MegaBytes
 
-data.update(1234);
+data.set(1234);
 console.log(data.humanize());     // 1.23 kB
+
+data.set(1234, 'kB');
+console.log(data.humanize());     // 1.23 MB
+
+data.set(1234, 'MegaBytes');
+console.log(data.humanize());     // 1.23 GB
 ```
 
 Next step: Create a conversor!
