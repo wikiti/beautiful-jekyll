@@ -11,6 +11,8 @@ Now, this can be implemented (and refactored) with the following block of javasc
 
 ```js
 var ByteSize = function(bytes) {
+  "use strict";
+
   // Constants
   UNITS = [
     { short: 'B', long: 'Bytes', factor: 1 },
@@ -45,6 +47,7 @@ var ByteSize = function(bytes) {
   this.humanize = function(long) {
     var data = this.human();
     var unit = long ? data.unit.long : data.unit.short;
+
     // Round and return as a string
     return (Math.round(data.value * 10**(DECIMALS + 1)) / 10**DECIMALS) + UNITS_SEPARATOR + unit;
   };
