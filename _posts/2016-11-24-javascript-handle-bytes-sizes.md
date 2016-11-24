@@ -8,13 +8,7 @@ Imagine that you're using bytes sizes in your javascript code. For example, hand
 Now, this can be implemented (and refactored) with the following block of javascript:
 
 ```js
-
-```
-
-And can be used like this:
-
-```js
-var HumanSizes = function(bytes) {
+var ByteSize = function(bytes) {
   UNITS = [
     { short: 'B', long: 'Bytes' },
     { short: 'kB', long: 'kiloBytes' },
@@ -26,6 +20,10 @@ var HumanSizes = function(bytes) {
   DECIMALS = 2;
 
   bytes_value = bytes;
+  
+  this.update = function(bytes) {
+    bytes_value = bytes;
+  };
   
   this.human = function() {
     var unit = UNITS[0];
@@ -40,18 +38,38 @@ var HumanSizes = function(bytes) {
   };
 
   this.humanize = function(long) {
-    var data = human();
+    var data = this.human();
     var unit = long ? data.unit.long : data.unit.short;
     // Round and return as a string
     return (Math.round(data.bytes * 10**(DECIMALS + 1)) / 10**DECIMALS) + ' ' + unit;
   };
   
+  this.Bytes = function() {
+    return bytes_value;
+  };
+  
   this.kiloBytes = function() {
-    return bytes * FACTOR;
+    return this.bytes() * FACTOR;
   };
   
   this.MegaBytes = function() {
-    return 
+    return this.kiloBytes() * FACTOR;
+  };
+  
+  this.GigaBytes = function() {
+    return this.MegaBytes() * FACTOR;
+  };
+  
+  this.TeraBytes = function() {
+    return this.GigaBytes() * FACTOR;
   };
 };
+```
+
+And can be used like this:
+
+```js
+var data = new ByteSize(123456789);
+
+console.log(data.bytes()); // 
 ```
