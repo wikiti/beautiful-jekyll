@@ -1,6 +1,6 @@
 ---
 layout: post
-published: false
+published: true
 title: 'Javascript: Handle bytes sizes'
 date: '2016-11-24 12:45'
 subtitle: Because bytes are too small
@@ -35,10 +35,10 @@ var ByteSize = function(bytes, size) {
         return u.short.toLowerCase() == unit || u.long.toLowerCase() == unit;
       });
       if(!unit) throw('Invalid unit name: ' + unit);
-      bytes_value = bytes * unit.factor;
+      bytes_value = Math.round(bytes * unit.factor);
     }
     else {
-      bytes_value = bytes;
+      bytes_value = Math.round(bytes);
     }
   };
   
@@ -97,4 +97,10 @@ console.log(data.humanize());     // 1.23 MB
 
 data.set(1234, 'MegaBytes');
 console.log(data.humanize());     // 1.23 GB
+
+data = new ByteSize(1.2, 'kB');
+console.log(data.Bytes());        // 1200
+
+data = new ByteSize(1.2555, 'kiloBytes');
+console.log(data.Bytes());        // 1256
 ```
