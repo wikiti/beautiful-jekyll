@@ -20,7 +20,7 @@ var ByteSize = function(bytes, size) {
     { short: 'MB', long: 'MegaBytes', factor: 1e6 },
     { short: 'GB', long: 'GigaBytes', factor: 1e9 },
     { short: 'TB', long: 'TeraBytes', factor: 1e12 },
-  ]
+  ];
   var UNITS_SEPARATOR = ' ';
   var DECIMALS = 2;
   
