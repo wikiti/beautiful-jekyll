@@ -17,13 +17,13 @@ The desired behaviour for an application to record your screen should be as simp
 
 ## Reference
 
-Just place your *GIF* file somewhere in your repository, and reference it within your markdown file:
+Just place your *GIF* file somewhere in your repository, and reference it within your markdown file.
 
 ````md
 ![Alternative text](relative/path/to/your/file.gif)
 ````
 
-You can also reference urls:
+Remember that, if you're using GitHub's markdown editor (for example, on issues or pull requests), you may just drag and drop your *GIF*. You can also reference urls:
 
 ````md
 ![Alternative text](http://www.example.com/example.gif)
@@ -31,5 +31,6 @@ You can also reference urls:
 
 And this should be the result:
 
-![Lawl gif]()
+![Lawl gif]({{site.baseurl}}/img/mV9bFz7.gif)
+
 
