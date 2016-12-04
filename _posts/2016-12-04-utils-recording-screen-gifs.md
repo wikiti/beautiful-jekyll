@@ -4,7 +4,7 @@ published: true
 title: 'Utils: recording screen gifs'
 subtitle: Add some motion to your life!
 ---
-Have you ever seen some cool videos on those fancy and well-known GitHub projects' READMEs Like [this one]()? Oh, well, that repo it's mine, and it isn't a famouse one (sigh).
+Have you ever seen some cool videos on those fancy and well-known GitHub projects' READMEs Like [this one](https://github.com/wikiti/extension-networking/tree/master/examples/tic-tac-toe#description)? Oh, well, that repo it's mine, and it isn't a famouse one (sigh).
 
 Anyways, those *videos* are actually *GIF*s files, loaded as images. If you want to do so, it's very easy to do so. You only have to record the video, convert it into a *GIF*, and reference it in your markdown file.
 
@@ -33,5 +33,3 @@ Remember that, if you're using GitHub's markdown editor (for example, on issues 
 And this should be the result:
 
 ![Lawl gif]({{site.baseurl}}/img/mV9bFz7.gif)
-
-
