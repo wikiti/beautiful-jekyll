@@ -1,7 +1,8 @@
 ---
 layout: post
-published: false
+published: true
 title: 'Utils: recording screen gifs'
+subtitle: Add some motion to your life!
 ---
 Have you ever seen some cool videos on those fancy and well-known GitHub projects' READMEs Like [this one]()? Oh, well, that repo it's mine, and it isn't a famouse one (sigh).
 
