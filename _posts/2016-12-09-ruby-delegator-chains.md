@@ -40,6 +40,8 @@ puts user.full_name
 `SimpleDelegator`'s internal implementation is actually very simple (and inneficient): it redefines the `method_missing` method to lookup on the *delegated* object. This means that multiple delegators may be chainned to implement multiple features:
 
 ```rb
+require 'delegate'
+
 class A < SimpleDelegator
 end
 
@@ -53,9 +55,70 @@ class Original
 end
 
 obj = C.new(B.new(A.new(Original.new)))
+puts obj.class # C
 ```
 
-Crazy, right?
+Crazy, right? But there is a problem: `obj` is no longer an `Original` instance, but a `C` instance which delegates to `B`, which delegates to `A`, which delegates to `Original`. This can be a problem when passing delegated objects to other methods without checking it's class (duck typing rules!). For example, on [active-record](https://github.com/rails/rails/tree/master/activerecord), you can save an object to the database if it refers a delegated object:
 
+```rb
+class User < ActiveRecord::Base
+  belongs_to :group
+end
 
-TODO
+class Group < ActiveRecord::Base
+  has_many :users
+end
+
+class PrintableUser < SimpleDelegator
+  # ...
+end
+
+# ...
+
+user = User.create
+printable_user = PrintableUser.new(user)
+group = Group.last
+group.users << printable_user # <- ¡ERROR! Unexpected PrintableUser type, expected User.
+```
+
+To fix this issue, you can implement an `original` (or whatever name) method to retrieve the original object. To access a delegated object within the delegator, you need to use [`__getobj__`](http://ruby-doc.org/stdlib-2.2.1/libdoc/delegate/rdoc/SimpleDelegator.html#method-i-__getobj__). Since `self` refers to the current instance, you must iterate over all delegated objects until someone does not respond to `__getobj__`:
+
+```rb
+class A < SimpleDelegator
+end
+
+class B < SimpleDelegator
+end
+
+class C < SimpleDelegator
+end
+
+class Original
+  def original
+    obj = self
+    obj = self.__getobj__ while obj.respond_to? :__getobj__
+    obj
+  end
+end
+
+obj = C.new(B.new(A.new(Original.new)))
+puts obj.class # C
+puts obj.original.class # Original
+```
+
+Tada! Also, you can create circular dependencies with delegated objects:
+
+```rb
+class A < SimpleDelegator
+end
+
+class B < SimpleDelegator
+end
+
+a = A.new(nil)
+b = B.new(a)
+
+a.__setobj__(b)
+```
+
+Leading to a `SystemStackError: stack level too deep` everytime you use `a` or `b`. Be careful!!
