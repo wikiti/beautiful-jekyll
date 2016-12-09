@@ -2,6 +2,7 @@
 layout: post
 published: false
 title: 'Ruby: Delegator chains'
+subtitle: Not my job. You do it.
 ---
 Have you ever heard of [`SimpleDelegator`](http://ruby-doc.org/stdlib-2.2.1/libdoc/delegate/rdoc/SimpleDelegator.html)? It's a pretty useful tool; it's basically used to extend an instance's behaviour with more methods without modifying its base class (extension is good for code maintainability!).
 
