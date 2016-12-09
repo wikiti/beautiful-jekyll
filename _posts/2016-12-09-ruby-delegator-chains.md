@@ -1,6 +1,6 @@
 ---
 layout: post
-published: false
+published: true
 title: 'Ruby: Delegator chains'
 subtitle: Not my job. You do it.
 ---
