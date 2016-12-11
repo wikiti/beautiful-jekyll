@@ -23,9 +23,9 @@ public function factorial(n: Int): Int {
 }
 ````
 
-Amazing! You can now use your little and readable function for computing factorials. The problem is... It's not optimal. For example, `factorial(5)` is computed as `6*5*4*3*2*1`. Everytime you call that function with an unique input, it'll always return the same output; this is known as a [deterministic algorithm](https://en.wikipedia.org/wiki/Deterministic_algorithm).
+Amazing! You can now use your little and readable function for computing factorials. The problem is... It's not optimal, by far. For example, `factorial(5)` is computed as `6*5*4*3*2*1`. Everytime you call that function with the same input, it'll always return the same output; this is known as a [deterministic algorithm](https://en.wikipedia.org/wiki/Deterministic_algorithm).
 
-Think about it! If you know what's the value of `factorial(5)`, why shouldn't I use it to calculate `factorial(6)` as `6*factorial(5)`? Here's where we use [memoization](https://en.wikipedia.org/wiki/Memoization): we want to store those values in memory, so we only have to compute them **once**.
+Think about it! If you know what's the value of `factorial(5)`, why shouldn't I use it to calculate `factorial(6)` as `6*factorial(5)` instead of `6*5*4*3*2*1`? Here's why we use [memoization](https://en.wikipedia.org/wiki/Memoization): we want to store those values in memory, so we only have to compute them **once** and we can retrieve them later.
 
 ## But... what's the difference between dynamic programming and memoization?
 
@@ -34,11 +34,11 @@ Good point! The different is pretty simple:
 - Memoization is a **technique** used to optimize algorithms that will be constantly used to compute similar or overlapped values (for example, factorials). Using this, you compute it once, store it, and then retrieve it if needed; this means that the first time will take much more time that the next ones. This can be applied to almost any deterministic algorithm
 - Dynamic programming is a method for solving complex problems with overlapping solutions by breaking them into smaller problems, and storing each solution on a cell of a given table. The next time that subproblem is found, the value will be retrieved and reused. This reduces computation time by increasing memory usage.
 
-## How to use it
+## How do I use it?
 
-The best way to use this techniq is by using store structures with high access speeds, like [hashes tables](https://en.wikipedia.org/wiki/Hash_table) (with *O(1)*) or [binary search tree](https://en.wikipedia.org/wiki/Binary_search_tree) (with *O(log n)*). The quickest way to get started is by using dictionaries or maps, which are present in almost every programming language.
+The best way to use this techniq is by using store structures with high access speeds, like [hashes tables](https://en.wikipedia.org/wiki/Hash_table) (with *O(1)*) or [binary search trees](https://en.wikipedia.org/wiki/Binary_search_tree) (with *O(log n)*). The quickest way to get started is by using dictionaries or maps, which are present in almost every programming language.
 
-The concept is pretty simple; create a *memory object* which will store all previous computations. If the value is found, it'll be retrieved instead of being re-computed. Otherwise, the value must be computed for the first time. The pseudoce it's the following:
+The concept is pretty simple; create a *memory object* which will store all previous computations of each input. If the value is found, it'll be retrieved instead of being re-computed. Otherwise, the value must be computed for the first time. The pseudoce it's the following:
 
 ````
 memory := {}
@@ -72,9 +72,9 @@ function factorial(n):
     return value
 ````
 
-## Examples in different languages
+## Can you show me some examples?
 
-Here are some examples for the factorial function for different languages.
+Sure. Here are some examples for the factorial function for different languages.
 
 ### C++
 
@@ -174,9 +174,9 @@ end
 puts factorial(5)
 ````
 
-## Memoize everything
+## Can I *memoize* anything?
 
-You can also create wrappers or modules to refactor code and be able to memoize anything. For example, in ruby, you may wrap everything in a lambda with a local memory variable:
+Almost. You can also create wrappers or modules to refactor code and be able to memoize anything. For example, in ruby, you may wrap everything in a lambda with a local memory variable:
 
 ````ruby
 def memoize(function)
@@ -200,7 +200,6 @@ fibonnaci = memoize ->(n) do
 end
 puts fibonnaci.call(6)
 
-
 rectangle_area = memoize ->(x, y) { x * y }
 puts rectangle_area.call(5, 4)
 ````
@@ -209,7 +208,7 @@ Easy peasy!
 
 ## In summary
 
-- Memoization is a technique used to optimize algortihms which is used to store already computed values, then retrieve them if required instead of re-calculating them.
+- Memoization is a technique used to optimize algorithms which is used to store already computed values, then retrieve them if required instead of re-calculating them.
 - It can be implemented easily on almost every language easily.
 - Dynamic programming and memoization are not the same.
 
