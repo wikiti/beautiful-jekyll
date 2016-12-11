@@ -75,7 +75,7 @@ function factorial(n):
 
 Here are some examples for the factorial function for different languages.
 
-- C++
+### C++
 
 ````cpp
 #include <iostream>
@@ -100,7 +100,7 @@ int main() {
 }
 ````
 
-- Haxe
+### Haxe
 
 ````haxe
 class Factorial {
@@ -126,7 +126,7 @@ class Factorial {
 }
 ````
 
-- Javascript
+### Javascript
 
 ````javascript
 var factorial = (function() {
@@ -149,7 +149,7 @@ console.log(factorial(5));
 
 ````
 
-- Python
+### Python
 
 ````python
 memory = {}
@@ -162,7 +162,7 @@ def factorial(n):
 print(factorial(5))
 ````
 
-- Ruby
+### Ruby
 
 ````ruby
 def factorial(n)
