@@ -27,10 +27,13 @@ Amazing! You can now use your little and readable function for computing factori
 
 Think about it! If you know what's the value of `factorial(5)`, why shouldn't I use it to calculate `factorial(6)` as `6*factorial(5)`? Here's where we use [memoization](https://en.wikipedia.org/wiki/Memoization): we want to store those values in memory, so we only have to compute them **once**.
 
-
 ## How to use it
 
+...
+
 ## Examples in different languages
+
+...
 
 ## Resources
 
