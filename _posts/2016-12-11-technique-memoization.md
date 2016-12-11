@@ -1,7 +1,8 @@
 ---
 layout: post
-published: false
+published: true
 title: 'Technique: Memoization'
+subtitle: 'Compute it once, use it everyday'
 ---
 ## What is it?
 
