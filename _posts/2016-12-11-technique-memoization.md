@@ -134,7 +134,23 @@ class Factorial {
 - Javascript
 
 ````javascript
-var Factiruakl
+var factorial = (function() {
+  var memory = {};
+
+  return function(n) {
+    var val = memory[n];
+    if(val === undefined) {
+      // Not found
+      return memory[n] = n <= 1 ? 1 : (n * factorial(n - 1));
+    }
+    else {
+      // Found
+      return val;
+    }
+  }
+})();
+
+console.log(factorial(5));
 
 ````
 
