@@ -126,11 +126,6 @@ class Factorial {
 }
 ````
 
-- Java
-
-````java
-````
-
 - Javascript
 
 ````javascript
@@ -156,17 +151,26 @@ console.log(factorial(5));
 
 - Python
 
-````pythom
+````python
+memory = {}
+def factorial(n):
+  if n not in memory:
+    memory[n] = 1 if n <= 1 else (n*factorial(n-1))
+  
+  return memory[n]
+
+print(factorial(5))
 ````
 
 - Ruby
 
 ````ruby
-````
+def factorial(n)
+  @memory ||= {}
+  @memory[n] ||= n <= 1 ? 1 : (n * factorial(n - 1))
+end
 
-- Rust
-
-````rust
+puts factorial(5)
 ````
 
 
