@@ -173,4 +173,12 @@ end
 puts factorial(5)
 ````
 
+## Memoize everything
+
+## In summary
+
+- Memoization is a technique used to optimize algortihms which is used to store already computed values, then retrieve them if required instead of re-calculating them.
+- It can be implemented easily on almost every language easily.
+- Dynamic programming and memoization are not the same.
+
 
