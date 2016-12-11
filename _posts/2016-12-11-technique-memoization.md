@@ -4,8 +4,6 @@ published: true
 title: 'Technique: Memoization'
 subtitle: 'Compute it once, use it everyday'
 ---
-## What is it?
-
 So, you've an amazing program that computes, for example, a factorial of a number. We know that the recursive algorithm for that operation is the following:
 
 ````
