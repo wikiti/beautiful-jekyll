@@ -190,12 +190,21 @@ factorial = memoize ->(x) { x <= 1 ? 1 : x * factorial.call(x - 1) }
 puts factorial.call(5)
 ````
 
-You can apply this to any deterministic function!
+You can apply this to almost any deterministic function!
 
 ````ruby
+fibonnaci = memoize ->(n) do
+  return n if n <= 1
+  fibonnaci.call(n - 1) + fibonnaci.call(n - 2)
+end
+puts fibonnaci.call(6)
+
+
 rectangle_area = memoize ->(x, y) { x * y }
 puts rectangle_area.call(5, 4)
 ````
+
+Easy peasy!
 
 ## In summary
 
