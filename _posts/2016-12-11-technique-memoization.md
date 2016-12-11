@@ -175,6 +175,28 @@ puts factorial(5)
 
 ## Memoize everything
 
+You can also create wrappers or modules to refactor code and be able to memoize anything. For example, in ruby, you may wrap everything in a lambda with a local memory variable:
+
+````ruby
+def memoize(function)
+  memory = {}
+  ->(*args) do
+    args = args.first if args.size == 1
+    memory[args] ||= function.call(*args)
+  end
+end
+
+factorial = memoize ->(x) { x <= 1 ? 1 : x * factorial.call(x - 1) }
+puts factorial.call(5)
+````
+
+You can apply this to any deterministic function!
+
+````ruby
+rectangle_area = memoize ->(x, y) { x * y }
+puts rectangle_area.call(5, 4)
+````
+
 ## In summary
 
 - Memoization is a technique used to optimize algortihms which is used to store already computed values, then retrieve them if required instead of re-calculating them.
