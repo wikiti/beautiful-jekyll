@@ -73,14 +73,57 @@ function factorial(n):
 
 ## Examples in different languages
 
+Here are some examples for the factorial function for different languages.
+
 - C++
 
 ````cpp
+#include <iostream>
+#include <map>
+
+int factorial(int n) {
+  static std::map<int, int> memory = std::map<int, int>();
+
+  auto found = memory.find(n);
+  if(found == memory.end()) {
+    // Not found
+    return memory[n] = n <= 1 ? 1 : (n * factorial(n - 1));
+  }
+  else {
+    // Found
+    return found->second;
+  }
+}
+
+int main() {
+  std::cout << factorial(5) << std::endl;
+}
 ````
 
 - Haxe
 
 ````haxe
+class Factorial {
+  private static var _memory: Map<Int, Int>;
+  
+  public static function factorial(n: Int): Int {
+    if(_memory == null) _memory = new Map<Int, Int>();
+    
+    var val = _memory[n];
+    if(val == null) {
+      // Not found
+      return _memory[n] = n <= 1 ? 1 : (n * factorial(n - 1));
+    }
+    else {
+      // Found
+      return val;
+    }
+  }
+  
+  public static function main() {
+    trace(factorial(5));
+  }
+}
 ````
 
 - Java
@@ -91,6 +134,8 @@ function factorial(n):
 - Javascript
 
 ````javascript
+var Factiruakl
+
 ````
 
 - Python
