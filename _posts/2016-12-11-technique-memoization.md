@@ -5,7 +5,7 @@ title: 'Technique: Memoization'
 ---
 ## What is it?
 
-So, you've an amazing program that computes, for example, a factorial of a number. We know that the recursive algortihm for that operation is the following:
+So, you've an amazing program that computes, for example, a factorial of a number. We know that the recursive algorithm for that operation is the following:
 
 ````
 function factorial(n):
@@ -23,15 +23,16 @@ public function factorial(n: Int): Int {
 }
 ````
 
-Amazing! You can now use your little and readable function for computing factorials. The problem is... It's not optimal. For example, `factorial(5)` is computed as `6*5*4*3*2*1`. Everytime you call that function with an unique input, it'll always return the same output; this is known as a [deterministic algortihm](https://en.wikipedia.org/wiki/Deterministic_algorithm).
+Amazing! You can now use your little and readable function for computing factorials. The problem is... It's not optimal. For example, `factorial(5)` is computed as `6*5*4*3*2*1`. Everytime you call that function with an unique input, it'll always return the same output; this is known as a [deterministic algorithm](https://en.wikipedia.org/wiki/Deterministic_algorithm).
 
 Think about it! If you know what's the value of `factorial(5)`, why shouldn't I use it to calculate `factorial(6)` as `6*factorial(5)`? Here's where we use [memoization](https://en.wikipedia.org/wiki/Memoization): we want to store those values in memory, so we only have to compute them **once**.
 
 ## But... what's the difference between dynamic programming and memoization?
 
-Good point!
+Good point! The different is pretty simple:
 
-...
+- Memoization is a **technique** used to optimize algorithms that will be constantly used to compute similar or overlapped values (for example, factorials). Using this, you compute it once, store it, and then retrieve it if needed; this means that the first time will take much more time that the next ones. This can be applied to almost any deterministic algorithm
+- Dynamic programming is a method for solving complex problems with overlapping solutions by breaking them into smaller problems, and storing each solution on a cell of a given table. The next time that subproblem is found, the value will be retrieved and reused. This reduces computation time by increasing memory usage.
 
 ## How to use it
 
