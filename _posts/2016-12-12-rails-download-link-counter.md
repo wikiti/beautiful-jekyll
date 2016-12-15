@@ -15,19 +15,19 @@ As stated on that amazing introduction, we need to *track* how many times a file
 
 Models. Yup. That's it. We'll store how many times a link has been accessed by using a database record. We need to store the path (e.g. the file route) and the download count. There are many ways to store that information in the database. For example:
 
-- Store `download_count` into an existent model.
-- Create a new model, storing `controller`, `action`, `file_id` ... and `download_count`.
-- Create a new model, storing the `path` and `download_count`.
+- Store download `count` into an existent model.
+- Create a new model, storing `controller`, `action`, `file_id` ... and download `count`.
+- Create a new model, storing the `path` and `count`.
 
 I think that the third option is the most flexible of all of them, becase we can track anything we want; from file download to per route access, building some cool stats for ~~software destroyers~~ marking team.
 
 The table scheme will be the following for this case:
 
-| id: integer | path: text         | download_count: integer |
-| ----------- | ------------------ | ----------------------- |
-|           1 | /files/32/download |                     243 |
-|           2 | /files/24/download |                   12560 |
-|         ... |                ... |                     ... |
+| id: integer | [path: text]       | count: integer |
+| ----------- | ------------------ | -------------- |
+|           1 | /files/32/download |            243 |
+|           2 | /files/24/download |          12560 |
+|         ... |                ... |            ... |
 
 Easy, right? The *primary key* should be *path*, because there must be only one register per tracked path.
 
@@ -37,6 +37,29 @@ Now, it's time to work!
 
 ## Implementation
 
-First, we need a model to store that information.
+First, we need a model to store the table's information. Wel should call it... `DownloadCounter`. Original, isn't it?
+
+This is pretty straightforward:
+
+```sh
+$ rails g model download_counter path:text counter:integer
+```
+
+We want `path` to be primary key and `count` to be `0` as default, so we need to update the migration file to look like this:
+
+```rb
+class CreateDownloadCounter < ActiveRecord::Migration
+  def change
+    create_table :download_counter do |t|
+      t.text :path, primary_key: true, index: true # indexed primary key
+      t.integer :counter, default: 0 # 0 as default
+    end
+  end
+end
+```
+
+Now, some methods for the model:
+
+TODO ...
 
 ## Conclussions
