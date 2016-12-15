@@ -23,13 +23,15 @@ I think that the third option is the most flexible of all of them, becase we can
 
 The table scheme will be the following for this case:
 
-| id: integer  | path: text               | download_count: integer |
-| --- | ------------------ | -------------- |
-|   1 | /files/32/download |            243 |
-|   2 | /files/24/download |          12560 |
-| ... | ..                 |            ... |
+| id: integer | path: text         | download_count: integer |
+| ----------- | ------------------ | ----------------------- |
+|           1 | /files/32/download |                     243 |
+|           2 | /files/24/download |                   12560 |
+|         ... |                ... |                     ... |
 
+Easy, right? The *primary key* should be *path*, because there must be only one register per tracked path.
 
+After setting the model, the controllers must increment the corresponding path record everytime is accessed.
 
 ## Implementation
 
