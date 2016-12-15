@@ -21,8 +21,18 @@ Models. Yup. That's it. We'll store how many times a link has been accessed by u
 
 I think that the third option is the most flexible of all of them, becase we can track anything we want; from file download to per route access, building some cool stats for ~~software destroyers~~ marking team.
 
-Now, back to work!
+The table scheme will be the following for this case:
+
+| id: integer  | path: text               | download_count: integer |
+| --- | ------------------ | -------------- |
+|   1 | /files/32/download |            243 |
+|   2 | /files/24/download |          12560 |
+| ... | ..                 |            ... |
+
+
 
 ## Implementation
+
+First, we need a model to store that information.
 
 ## Conclussions
