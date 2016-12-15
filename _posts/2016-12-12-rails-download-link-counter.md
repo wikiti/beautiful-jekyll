@@ -33,6 +33,8 @@ Easy, right? The *primary key* should be *path*, because there must be only one 
 
 After setting the model, the controllers must increment the corresponding path record everytime is accessed.
 
+Now, it's time to work!
+
 ## Implementation
 
 First, we need a model to store that information.
