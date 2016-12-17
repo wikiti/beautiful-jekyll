@@ -18,18 +18,19 @@ Models. Yup. That's it. We'll store how many times a link has been accessed by u
 - Store download `count` into an existent model.
 - Create a new model, storing `controller`, `action`, `file_id` ... and download `count`.
 - Create a new model, storing the `path` and `count`.
+- Create a new model, storing the `count`, and relating it with the downloable model.
 
 I think that the third option is the most flexible of all of them, becase we can track anything we want; from file download to per route access, building some cool stats for ~~software destroyers~~ marking team.
 
 The table scheme will be the following for this case:
 
-| id: integer | [path: text]       | count: integer |
+| id: integer | path: text       | count: integer |
 | ----------- | ------------------ | -------------- |
 |           1 | /files/32/download |            243 |
 |           2 | /files/24/download |          12560 |
 |         ... |                ... |            ... |
 
-Easy, right? The *primary key* should be *path*, because there must be only one register per tracked path.
+Easy, right? Note that *path* should be indexed to speed up queries.
 
 After setting the model, the controllers must increment the corresponding path record everytime is accessed.
 
@@ -37,29 +38,89 @@ Now, it's time to work!
 
 ## Implementation
 
-First, we need a model to store the table's information. Wel should call it... `DownloadCounter`. Original, isn't it?
+First, we need a model to store the table's information. Wel should call it... `RequestCounter`. Original, isn't it?
 
 This is pretty straightforward:
 
 ```sh
-$ rails g model download_counter path:text counter:integer
+$ rails generate model request_counter path:text counter:integer
 ```
 
 We want `path` to be primary key and `count` to be `0` as default, so we need to update the migration file to look like this:
 
 ```rb
-class CreateDownloadCounter < ActiveRecord::Migration
+class CreateRequestCounters < ActiveRecord::Migration
   def change
-    create_table :download_counter do |t|
-      t.text :path, primary_key: true, index: true # indexed primary key
+    create_table :request_counters do |t|
+      t.text :path, index: true # indexed attribute
       t.integer :counter, default: 0 # 0 as default
+
+      t.timestamps
     end
   end
 end
 ```
 
-Now, some methods for the model:
+Now,let's add some methods to the model:
 
-TODO ...
+```rb
+class RequestCounter < ActiveRecord::Base
+  def inc
+    self.class.increment_counter :counter, self.id
+  end
+end
+```
+
+So, why should we use [`ActiveRecord::Base::increment_counter`](http://apidock.com/rails/ActiveRecord/Base/increment_counter/class) instead of [`ActiveRecord::Base#increment`](http://apidock.com/rails/ActiveRecord/Base/increment) or `+= 1`? The answer  is simple: we want our increments to be atomic. Imagine a race condition where to users download the same file at the very same time; this may lead to conflicts and the counter may be incremented by `1` instead of `2`, and we don't want that. Instead, `increment_counter` will perform the increment on the database layer of our application (instead of doing something like `SET COLUMN TO VALUE`, it'll `ICREMENT COLUMN BY 1`).
+
+And now, the controller. Each time a download link is accessed, the related counter should be increment. To handle any kind of link (even paths), we'll put the main code in the `ApplicationController` class:
+
+```rb
+class ApplicationController < ActionController::Base
+  def register_path_request
+    request_counter = RequestCounter.find_or_create_by path: request.path
+    request_counter.inc
+  end
+  
+  # ...
+end
+```
+
+Isn't the [`find_or_create_by`](http://apidock.com/rails/v4.0.2/ActiveRecord/Relation/find_or_create_by) method cool? If the record is not found, then it's created! After that, the counter is incremented by one with `RequestCounter#inc`.
+
+- *But... the `ApplicationController#register_path_request` is not called anywhere! How do we use it?*
+
+That's a good question! Well use [`after_action`](http://apidock.com/rails/v4.0.2/AbstractController/Callbacks/ClassMethods/after_action) callback in one of our controllers to call this method. For example, imagina that we have the following controller:
+
+```rb
+class FilesController < ApplicationController
+  # GET /files/:id
+  def show
+    send_file "path/to/file_#{params[:id]}.txt"
+  end
+  
+  # ...
+end
+```
+
+We'll add an `after_action` to track each time `/files/:id` is requested:
+
+```rb
+class FilesController < ApplicationController
+  after_action :register_path_request, only: [:show]
+
+  # ...
+end
+```
+
+And you're done! Everytime you access the very same path or route, the counter will be created (if not found) and incremented by one. Try different implementations and use the one that fits better for your needs.
 
 ## Conclussions
+
+So, in summary:
+
+- Use a model to store the information in the database.
+- Track requests count by path, action-controller, model, etc.
+- Use action callbacks to increment the counters automatically.
+
+Happy coding!
