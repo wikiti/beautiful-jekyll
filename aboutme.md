@@ -2,6 +2,10 @@
 layout: page
 title: About me
 subtitle: Trust me, I'm an Engineer
+
+sitemap:
+  priority: 0.9
+  changefreq: 'monthly'
 ---
 
 ## About me

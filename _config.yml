@@ -146,5 +146,8 @@ prose:
 gems:
   - jekyll-paginate
 
+services:
+  google_site_verification: gkRgvx0B4I9rvQ77xgRbxr74k5nC-j47je6OWI2Z9ik
+
 # Beautiful Jekyll / Dean Attali
 # 2fc73a3a967e97599c9763d05e564189
