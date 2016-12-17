@@ -1,7 +1,8 @@
 ---
 layout: post
-published: false
+published: true
 title: 'Rails: Download link counter'
+subtitle: Keep track of it!
 ---
 It's 4:00 AM in the morning. You're finishing your amazing Rails WebApp which will let final users download free content without paying anything. You're almost done, polishing some details. However, you lack of one feature, and you don't know how to implement it (*really? are you serious? after all this?*): track how many times has a file been downloaded.
 
@@ -9,7 +10,7 @@ Fear not, my friend! I've the solution for you, right on this post.
 
 ## Problem
 
-As stated on that amazing introduction, we need to *track* how many times a file has been downloaded. There is no way for Rails routes to persist how many times a route has been accesed (actually, it can, but rack middleware is required). So, how do we solve this?
+As stated on that amazing introduction, we need to *track* how many times a file has been downloaded. There is no way for Rails routes to persist how many times a route has been accessed (actually, it can, but rack middleware is required). So, how do we solve this?
 
 ## Solution
 
@@ -18,9 +19,9 @@ Models. Yup. That's it. We'll store how many times a link has been accessed by u
 - Store download `count` into an existent model.
 - Create a new model, storing `controller`, `action`, `file_id` ... and download `count`.
 - Create a new model, storing the `path` and `count`.
-- Create a new model, storing the `count`, and relating it with the downloable model.
+- Create a new model, storing the `count`, and relating it with the downloadable model.
 
-I think that the third option is the most flexible of all of them, becase we can track anything we want; from file download to per route access, building some cool stats for ~~software destroyers~~ marking team.
+I think that the third option is the most flexible of all of them, because we can track anything we want; from file download to per route access, building some cool stats for ~~software destroyers~~ marketing team.
 
 The table scheme will be the following for this case:
 
@@ -32,13 +33,13 @@ The table scheme will be the following for this case:
 
 Easy, right? Note that *path* should be indexed to speed up queries.
 
-After setting the model, the controllers must increment the corresponding path record everytime is accessed.
+After setting the model, the controllers must increment the corresponding path record every time is accessed.
 
 Now, it's time to work!
 
 ## Implementation
 
-First, we need a model to store the table's information. Wel should call it... `RequestCounter`. Original, isn't it?
+First, we need a model to store the table's information. We should call it... `RequestCounter`. Original, isn't it?
 
 This is pretty straightforward:
 
@@ -71,7 +72,7 @@ class RequestCounter < ActiveRecord::Base
 end
 ```
 
-So, why should we use [`ActiveRecord::Base::increment_counter`](http://apidock.com/rails/ActiveRecord/Base/increment_counter/class) instead of [`ActiveRecord::Base#increment`](http://apidock.com/rails/ActiveRecord/Base/increment) or `+= 1`? The answer  is simple: we want our increments to be atomic. Imagine a race condition where to users download the same file at the very same time; this may lead to conflicts and the counter may be incremented by `1` instead of `2`, and we don't want that. Instead, `increment_counter` will perform the increment on the database layer of our application (instead of doing something like `SET COLUMN TO VALUE`, it'll `ICREMENT COLUMN BY 1`).
+So, why should we use [`ActiveRecord::Base::increment_counter`](http://apidock.com/rails/ActiveRecord/Base/increment_counter/class) instead of [`ActiveRecord::Base#increment`](http://apidock.com/rails/ActiveRecord/Base/increment) or `+= 1`? The answer  is simple: we want our increments to be atomic. Imagine a race condition where to users download the same file at the very same time; this may lead to conflicts and the counter may be incremented by `1` instead of `2`, and we don't want that. Instead, `increment_counter` will perform the increment on the database layer of our application (instead of doing something like `SET COLUMN TO VALUE`, it'll `INCREMENT COLUMN BY 1`).
 
 And now, the controller. Each time a download link is accessed, the related counter should be increment. To handle any kind of link (even paths), we'll put the main code in the `ApplicationController` class:
 
@@ -90,7 +91,7 @@ Isn't the [`find_or_create_by`](http://apidock.com/rails/v4.0.2/ActiveRecord/Rel
 
 - *But... the `ApplicationController#register_path_request` is not called anywhere! How do we use it?*
 
-That's a good question! Well use [`after_action`](http://apidock.com/rails/v4.0.2/AbstractController/Callbacks/ClassMethods/after_action) callback in one of our controllers to call this method. For example, imagina that we have the following controller:
+That's a good question! Well use [`after_action`](http://apidock.com/rails/v4.0.2/AbstractController/Callbacks/ClassMethods/after_action) callback in one of our controllers to call this method. For example, imagine that we have the following controller:
 
 ```rb
 class FilesController < ApplicationController
@@ -113,9 +114,9 @@ class FilesController < ApplicationController
 end
 ```
 
-And you're done! Everytime you access the very same path or route, the counter will be created (if not found) and incremented by one. Try different implementations and use the one that fits better for your needs.
+And you're done! Every time you access the very same path or route, the counter will be created (if not found) and incremented by one. Try different implementations and use the one that fits better for your needs.
 
-## Conclussions
+## Conclusions
 
 So, in summary:
 
