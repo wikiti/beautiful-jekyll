@@ -11,7 +11,7 @@ For example, imagine that you have a class like this:
 ```rb
 class User
   attr_accessor :first_name, :last_name
-  
+
   def initialize(first_name, last_name)
     self.first_name = first_name
     self.last_name = last_name

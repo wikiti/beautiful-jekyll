@@ -6,6 +6,24 @@ h1.big {
   font-size: 700%;
 }
 
+.blog-comments-count {
+  text-align: right;
+  margin-top: 10px;
+
+  font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: 90%;
+  font-weight: bold;
+  color: #5e9d2d;
+}
+
+.blog-comments-count a {
+  color: #5e9d2d !important;
+}
+
+.blog-post p {
+  text-align: justify;
+}
+
 /* --- General --- */
 
 body {
@@ -289,7 +307,7 @@ footer .theme-by {
 
 @media only screen and (min-width: 768px) {
   .post-preview {
-    padding: 35px 0;
+    padding: 30px 0;
   }
 }
 
@@ -326,6 +344,7 @@ footer .theme-by {
 }
 .post-preview .post-entry {
   font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  text-align: justify;
 }
 .post-preview .post-read-more {
   font-weight: 800;

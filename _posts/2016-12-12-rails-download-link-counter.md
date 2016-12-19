@@ -82,7 +82,6 @@ class ApplicationController < ActionController::Base
     request_counter = RequestCounter.find_or_create_by path: request.path
     request_counter.inc
   end
-  
   # ...
 end
 ```
@@ -99,7 +98,7 @@ class FilesController < ApplicationController
   def show
     send_file "path/to/file_#{params[:id]}.txt"
   end
-  
+
   # ...
 end
 ```

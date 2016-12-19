@@ -23,10 +23,10 @@ var ByteSize = function(bytes, size) {
   ];
   var UNITS_SEPARATOR = ' ';
   var DECIMALS = 2;
-  
+
   // Private vars
   var bytes_value = null;
-  
+
   // Public methods
   this.set = function(bytes, unit) {
     if(unit) {
@@ -41,11 +41,11 @@ var ByteSize = function(bytes, size) {
       bytes_value = Math.round(bytes);
     }
   };
-  
+
   this.human = function() {
     var unit = UNITS[0];
     var value = bytes_value;
-    
+
     for(var i = 1; i < UNITS.length && value / UNITS[i].factor >= 1; i++) {
       unit = UNITS[i];
     }
@@ -68,7 +68,7 @@ var ByteSize = function(bytes, size) {
       return bytes_value / unit.factor;
     };
   });
-  
+
   // Initialize
   this.set(bytes, size);
 };

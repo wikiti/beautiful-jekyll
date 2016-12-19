@@ -66,7 +66,7 @@ function factorial(n):
       value := 1
     else
       value := n * factorial(n - 1)
-    
+
     memory[n] := value
     return value
 ````
@@ -105,10 +105,10 @@ int main() {
 ````haxe
 class Factorial {
   private static var _memory: Map<Int, Int>;
-  
+
   public static function factorial(n: Int): Int {
     if(_memory == null) _memory = new Map<Int, Int>();
-    
+
     var val = _memory[n];
     if(val == null) {
       // Not found
@@ -119,7 +119,7 @@ class Factorial {
       return val;
     }
   }
-  
+
   public static function main() {
     trace(factorial(5));
   }
@@ -156,7 +156,7 @@ memory = {}
 def factorial(n):
   if n not in memory:
     memory[n] = 1 if n <= 1 else (n*factorial(n-1))
-  
+
   return memory[n]
 
 print(factorial(5))
@@ -209,6 +209,4 @@ Easy peasy!
 
 - Memoization is a technique used to optimize algorithms which is used to store already computed values, then retrieve them if required instead of re-calculating them.
 - It can be implemented easily on almost every language easily.
-- Dynamic programming and memoization are not the same.
-
-Happy coding!
+- Dynamic programming and memoization are not the same.Happy coding!
