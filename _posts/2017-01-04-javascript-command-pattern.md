@@ -4,7 +4,7 @@ published: true
 title: 'JavaScript: Command pattern'
 subtitle: Undo and redo!
 ---
-I've started reading the [Game Programming Patterns](http://gameprogrammingpatterns.com/) book. It's greate! Well written, funny, and extremely practical. I'd like to share a simple implementation in *JavaScript* of the *Command* patterns, the first introduced pattern in the book.
+Happy new year! I've started reading the [Game Programming Patterns](http://gameprogrammingpatterns.com/) book. It's greate! Well written, funny, and extremely practical. I'd like to share a simple implementation in *JavaScript* of the *Command* patterns, the first introduced pattern in the book.
 
 ## Definition of *Command pattern*
 
@@ -80,10 +80,12 @@ var Commander = (function(scope) {
     // Remove the actions after `current` command in the stack. Of course,
     // if we undo 3 times, we can redo 3 times. However, if we undo 3 times,
     // and execute a new action, we can no longer those 3 old commands.
-    // This action will not affect the list if the `current` points to the last element.
+    // This action will not affect the list if the `current` points to
+    // the last element.
     _list = _list.slice(0, _current);
     
-    // Execute the command, add it to the top of the stack and increment the current index.
+    // Execute the command, add it to the top of the stack and increment
+    // the current index.
     cmd.execute();
     _list.push(name);
     _current += 1;
