@@ -378,8 +378,8 @@ $("#btn-redo").click(function() {
 });
 ```
 
-And we're done! Here's a live example on a [JSFiddle](https://jsfiddle.net/887qen0u/16/). Oh, and the code is clean and refactored on this one!
+And we're done! Here's a live example on a [JSFiddle](https://jsfiddle.net/887qen0u/17/). Oh, and the code is clean and refactored on this one!
 
-<iframe style="width: 100%; height: 300px" src="https://jsfiddle.net/887qen0u/16/embedded/result/dark"></iframe>
+<iframe style="width: 100%; height: 300px" src="https://jsfiddle.net/887qen0u/17/embedded/result/dark"></iframe>
 
 Happy coding!
