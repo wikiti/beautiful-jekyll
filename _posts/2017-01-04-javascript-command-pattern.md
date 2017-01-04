@@ -13,14 +13,14 @@ That's a good question! I highly recommend you to read [this chapter](http://gam
 
 That's a good question! It can be implemented in a web-application editor based on JavaScript (like an [online paint](http://www.onemotion.com/flash/sketch-paint/)).
 
-In this section, I'll try to explain how to code a **undo-redo command framework** for a webpage. Our ~~generic and~~ simple program will be a stack calculator. These are the supported keys and their associated actions:
+In this section, I'll try to explain how to code a **undo-redo command framework** for a webpage. Our ~~generic and~~ simple program will be a stack calculator. These are the supported buttons and their associated actions:
 
-- **Press [Number]**: Add a new element to the stack with the value [Number].
-- **Press A**: Remove the top 2 values from the stack, sum them, and add the result to the stack.
-- **Press S**: Remove the top 2 values from the stack, substract them, and add the result to the stack.
-- **Press M**: Remove the top 2 values from the stack, multiply them, and add the result to the stack.
-- **Press D**: Remove the top 2 values from the stack, divide them, and add the result to the stack.
-- **Press R**: Restart the stack.
+- **Press "[Number]"**: Add a new element to the stack with the value *[Number]*.
+- **Press "+"**: Remove the top 2 values from the stack, sum them, and add the result to the stack.
+- **Press "-"**: Remove the top 2 values from the stack, substract them, and add the result to the stack.
+- **Press "*"**: Remove the top 2 values from the stack, multiply them, and add the result to the stack.
+- **Press "/"**: Remove the top 2 values from the stack, divide them, and add the result to the stack.
+- **Press "CLS"**: Restart the calculator.
 
 All the previos actions can be *undone* and *re-undone*. We'll need a global list to store the history of actions performed. Basically, everytime a new action is executed, it'll be added to the global list as a command object.
 
@@ -33,8 +33,8 @@ All the previos actions can be *undone* and *re-undone*. We'll need a global lis
 
 Therefore, the next commands are required to interact with the commands queue:
 
-- **Press Cntrl+Z**: Undo the last action, if available.
-- **Press Cntrl+Y**: Redo the next action, if available.
+- **Press "Undo"**: Undo the last action, if available.
+- **Press "Redo"**: Redo the next action, if available.
 
 Note that the previous commands will not add new elements to the command queue (should you undo an undo? Isn't that a redo? :)).
 
