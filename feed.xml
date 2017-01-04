@@ -17,6 +17,7 @@ layout: null
         </description>
         <pubDate>{{ post.date | date: "%a, %d %b %Y %H:%M:%S %z" }}</pubDate>
         <link>{{ site.url }}{{ post.url }}</link>
+        <comments>{{ site.url }}{{ post.url }}#disqus_thread</comments>
         <guid isPermaLink="true">{{ site.url }}{{ post.url }}</guid>
       </item>
     {% endfor %}
