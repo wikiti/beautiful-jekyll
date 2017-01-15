@@ -150,20 +150,52 @@ Same rules apply here as chapters' links.
 To insert an image with a caption use Markdown syntax:
 
 ```md
-![Figure 1-1. A cool seagull.](images/seagull.png)
+![A cool seagull.](images/seagull.png)
 ```
 
 Pandoc will automatically convert the image into a caption.
 
-If you want to resize the image, you can use [Pandoc's 1.16](http://pandoc.org/releases.html#pandoc-1.16-02-jan-2016) new syntax for image dimensions:
+If you want to resize the image, you can use this syntax:
 
 ```md
-![Figure 1-1. A cool seagull.](images/seagull.png){ width=50% height=50% }
+![A cool seagull.](images/seagull.png){ width=50% height=50% }
+```
+
+Also, to reference an image, use LaTeX labels:
+
+```md
+Please, admire the gloriousnes of Figure \ref{seagull_image}.
+
+![A cool seagull.\label{seagull_image}](images/seagull.png)
 ```
 
 ### Insert a table
 
-...
+Just insert a Markdown table, and use the `Table: Your table description` syntax to add a caption:
+
+```md
+| Index | Name |
+| ----- | ---- |
+| 0     | AAA  |
+| 1     | BBB  |
+| ...   | ...  |
+
+Table: This is an example table.
+```
+
+If you want to reference a table, use LaTeX labels:
+
+```md
+Please, check Table /ref{example_table}.
+
+| Index | Name |
+| ----- | ---- |
+| 0     | AAA  |
+| 1     | BBB  |
+| ...   | ...  |
+
+Table: This is an example table.\label{example_table}
+```
 
 ### Insert a math formula
 
