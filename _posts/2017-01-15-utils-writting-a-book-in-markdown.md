@@ -42,9 +42,9 @@ my-book/         # Root directory.
 |- Makefile      # Makefile used for building our books.
 ```
 
-Simple, isn't it? Don't worry abuot the files' content; I'll explain each file on the following sections.
+Simple, isn't it? Don't worry about the files' content; I'll explain each file on the following sections.
 
-You can find the template used on this post in [this GitHub repository](TODO). 
+You can find the template used on this post in [this GitHub repository](https://github.com/wikiti/pandoc-book-template). 
 
 ## Setup generic data
 
@@ -66,7 +66,7 @@ You get the idea, right? You can find the list of all available keys on [this pa
 
 ## Creating chapters
 
-Creating a new chapter is as simple as creating a new markdown file in your *chapters/* folder. Something like this:
+Creating a new chapter is as simple as creating a new markdown file in the *chapters/* folder; you'll end up with something like this:
 
 ```
 chapters/01-introduction.md
@@ -75,7 +75,9 @@ chapters/03-usage.md
 chapters/04-references.md
 ```
 
-Pandoc will join them automatically. All you need to specify is at least a title:
+Pandoc and Make will join them automatically ordered by name; that's why the numeric prefixes are being used.
+
+All you need to specify for each chapter is at least a title:
 
 ```md
 # Introduction
@@ -91,11 +93,11 @@ This is the first subsection.
 This is the second subsection.
 ```
 
-Each title (*#*) will represent a chapter, while each subtitle (*##*) will represent a chapter's section. You can use as many levels as markdown supports (5 or 6).
+Each title (*#*) will represent a chapter, while each subtitle (*##*) will represent a chapter's section. You can use as many levels of sections as markdown supports (I guess the limit is 5 or 6).
 
 ### Links between chapters
 
-Imagine you want to reference a chapter from another; when the reference is pressed, it will redirect you to that section. It can be achieved with anchor links:
+Imagine you want to reference a chapter from another; when the link is clicked, it will redirect you to that section. It can be achieved with anchor links:
 
 ```md
 // chapters/01-introduction.md
@@ -115,7 +117,7 @@ Just use the chapter's title name. If you want to rename the reference, use this
 For more information, check [this](#usage) chapter.
 ```
 
-Anchor names should be downcases, and spaces, colons, semicolons... should be replaced with hyphens. Instead of `Chapter title: A new era`, you have: `chapter-title-a-new-era`.
+Anchor names should be downcased, and spaces, colons, semicolons... should be replaced with hyphens. Instead of `Chapter title: A new era`, you have: `#chapter-title-a-new-era`.
 
 ### Links between sections
 
@@ -139,21 +141,23 @@ Or, renamed:
 For more information, check [this](#second) section.
 ```
 
-Same rules apply here as chapters' links.
+Same rules apply here as above.
 
-## Captions
+## Inserting objects
+
+Text. That's cool. What about images and tables?
 
 ### Insert an image
 
-To insert an image with a caption use Markdown syntax:
+Use Markdown syntax to insert an image with a caption:
 
 ```md
 ![A cool seagull.](images/seagull.png)
 ```
 
-Pandoc will automatically convert the image into a caption.
+Pandoc will automatically convert the image into a figure (image + caption).
 
-If you want to resize the image, you can use this syntax:
+If you want to resize the image, you may use this syntax, available in Pando 1.16:
 
 ```md
 ![A cool seagull.](images/seagull.png){ width=50% height=50% }
@@ -195,9 +199,9 @@ Please, check Table /ref{example_table}.
 Table: This is an example table.\label{example_table}
 ```
 
-### Insert a math formula
+### Insert an equation
 
-Wrap a LaTeX math equation between `$` delimiters:
+Wrap a LaTeX math equation between `$` delimiters for inline (tiny) formulas:
 
 ```md
 This, $\mu = \sum_{i=0}^{N} \frac{x_i}{N}$, the mean equation, ...
@@ -210,6 +214,8 @@ If you want to center the equation instead of inlining it, use double `$$` delim
 ```md
 $$\mu = \sum_{i=0}^{N} \frac{x_i}{N}$$
 ```
+
+[Here](https://www.codecogs.com/latex/eqneditor.php)'s an online equation editor.
 
 ## Output
 
@@ -291,7 +297,7 @@ The generated file(s) will be placed in *build/html*.
 
 ### Extra configuration
 
-If you want to configure the output, you'll probably have to look the [Pandoc Manual]() for further information about pdf (LaTeX) generation, custom styles, etc.
+If you want to configure the output, you'll probably have to look the [Pandoc Manual](http://pandoc.org/MANUAL.html) for further information about pdf (LaTeX) generation, custom styles, etc.
 
 ## References
 
