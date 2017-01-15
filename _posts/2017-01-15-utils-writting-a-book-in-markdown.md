@@ -199,7 +199,19 @@ Table: This is an example table.\label{example_table}
 
 ### Insert a math formula
 
-...
+Wrap a LaTeX math equation between `$` delimiters:
+
+```md
+This, $\mu = \sum_{i=0}^{N} \frac{x_i}{N}$, the mean equation, ...
+```
+
+Pandoc will transform them automatically into images using online services.
+
+If you want to center the equation instead of inlining it, use double `$$` delimiters:
+
+```md
+$$\mu = \sum_{i=0}^{N} \frac{x_i}{N}$$
+```
 
 ## Output
 
