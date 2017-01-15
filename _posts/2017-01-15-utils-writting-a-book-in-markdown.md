@@ -93,13 +93,55 @@ This is the first subsection.
 This is the second subsection.
 ```
 
-### Links between sections
-
-...
+Each title (*#*) will represent a chapter, while each subtitle (*##*) will represent a chapter's section. You can use as many levels as markdown supports (5 or 6).
 
 ### Links between chapters
 
+Imagine you want to reference a chapter from another; when the reference is pressed, it will redirect you to that section. It can be achieved with anchor links:
+
+```md
+// chapters/01-introduction.md
+# Introduction
+
+For more information, check the [Usage] chapter.
+
+// chapters/02-installation.md
+# Usage
+
 ...
+```
+
+Just use the chapter's title name. If you want to rename the reference, use this syntax:
+
+```md
+For more information, check [this](#usage) chapter.
+```
+
+Anchor names should be downcases, and spaces, colons, semicolons... should be replaced with hyphens. Instead of `Chapter title: A new era`, you have: `chapter-title-a-new-era`.
+
+### Links between sections
+
+It's the same as chapters' links:
+
+```md
+# Introduction
+
+## First
+
+For more information, check the [Second] section.
+
+## Second
+
+...
+```
+
+Or, renamed:
+
+```md
+For more information, check [this](#second) section.
+```
+
+Same rules apply here as chapters' links.
 
 ## Captions
 
