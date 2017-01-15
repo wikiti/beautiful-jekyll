@@ -145,9 +145,15 @@ Same rules apply here as chapters' links.
 
 ## Captions
 
-...
-
 ### Insert an image
+
+To insert an image with a caption use Markdown syntax:
+
+```md
+![Figure 1-1. A cool seagull.](images/seagull.png)
+```
+
+Pandoc will automatically convert the image into a caption.
 
 ...
 
