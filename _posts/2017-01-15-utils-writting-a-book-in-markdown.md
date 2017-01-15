@@ -1,6 +1,6 @@
 ---
 layout: post
-published: false
+published: true
 title: 'Utils: Writting a book in Markdown'
 subtitle: Is that even possible?
 ---
