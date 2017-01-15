@@ -8,8 +8,6 @@ Say you want to write your very own software or coding book. The first option to
 
 Here's the best and easiest way: use [Markdown](https://es.wikipedia.org/wiki/Markdown). Of course, it's not as powerful as LaTeX, but it's fast, easy and lightweight.
 
-EDIT: This is the second time I rewrite this post, because "Oh oh! Chrome crashes and changes weren't saved automatically!".
-
 ## Where do we start?
 
 If you don't know Markdown, I recommend you to read [this tutorial](http://www.markdowntutorial.com/). Since we're not serving the book as is (some scattered *.md* files) we need something to transform those source *.md* files into a convinient format like *.pdf* or *.pub*. Please, greet your new friend [Pandoc](http://pandoc.org/).
@@ -291,14 +289,12 @@ make html
 
 The generated file(s) will be placed in *build/html*.
 
-### Configuring the style
+### Extra configuration
 
-...
-
-### Configuring the output
-
-...
+If you want to configure the output, you'll probably have to look the [Pandoc Manual]() for further information about pdf (LaTeX) generation, custom styles, etc.
 
 ## References
 
-...
+- [Pandoc](http://pandoc.org/)
+- [Pandoc Manual](http://pandoc.org/MANUAL.html)
+- [Wikipedia: Markdown](http://wikipedia.org/wiki/Markdown)
