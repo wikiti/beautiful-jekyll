@@ -14,6 +14,8 @@ EDIT: This is the second time I rewrite this post, because "Oh oh! Chrome crashe
 
 If you don't know Markdown, I recommend you to read [this tutorial](http://www.markdowntutorial.com/). Since we're not serving the book as is (some scattered *.md* files) we need something to transform those source *.md* files into a convinient format like *.pdf* or *.pub*. Please, greet your new friend [Pandoc](http://pandoc.org/).
 
+You can find the template used on this post in [this GitHub repository](TODO). 
+
 ## Installing
 
 Please, check [this page](http://pandoc.org/installing.html) for more information. On ubuntu, it can be installed with this command:
