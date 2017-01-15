@@ -298,3 +298,5 @@ If you want to configure the output, you'll probably have to look the [Pandoc Ma
 - [Pandoc](http://pandoc.org/)
 - [Pandoc Manual](http://pandoc.org/MANUAL.html)
 - [Wikipedia: Markdown](http://wikipedia.org/wiki/Markdown)
+
+Happy coding!
