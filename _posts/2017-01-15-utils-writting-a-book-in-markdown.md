@@ -14,8 +14,6 @@ EDIT: This is the second time I rewrite this post, because "Oh oh! Chrome crashe
 
 If you don't know Markdown, I recommend you to read [this tutorial](http://www.markdowntutorial.com/). Since we're not serving the book as is (some scattered *.md* files) we need something to transform those source *.md* files into a convinient format like *.pdf* or *.pub*. Please, greet your new friend [Pandoc](http://pandoc.org/).
 
-You can find the template used on this post in [this GitHub repository](TODO). 
-
 ## Installing
 
 Please, check [this page](http://pandoc.org/installing.html) for more information. On ubuntu, it can be installed with this command:
@@ -23,6 +21,8 @@ Please, check [this page](http://pandoc.org/installing.html) for more informatio
 ```sh
 sudo apt-get install pandoc
 ```
+
+<a href="https://www.youtube.com/watch?v=n3TAEaTCJHg" target="_blank">Easy peasy lemon squeezy</a>.
 
 Also, we'll be using [make](https://www.gnu.org/software/make/), so don't forget to install it:
 
@@ -32,7 +32,17 @@ sudo apt-get install make
 
 ## Folder structure
 
-...
+Before creating scattered files like a maniac, let's create a folder tree structure to keep files organized. For example:
+
+```
+my-book/
+|- 
+```
+
+Simple, isn't it?
+
+
+You can find the template used on this post in [this GitHub repository](TODO). 
 
 ## Creating chapters
 
