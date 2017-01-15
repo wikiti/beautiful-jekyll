@@ -35,18 +35,63 @@ sudo apt-get install make
 Before creating scattered files like a maniac, let's create a folder tree structure to keep files organized. For example:
 
 ```
-my-book/
-|- 
+my-book/         # Root directory.
+|- build/        # Folder used to store builded (output) files.
+|- chapters/     # Markdowns files; one for each chapter.
+|- images/       # Images folder.
+|  |- cover.png  # Cover page for epub.
+|- metadata.yml  # Metadata content (title, author...).
+|- Makefile      # Makefile used for building our books.
 ```
 
-Simple, isn't it?
-
+Simple, isn't it? Don't worry abuot the files' content; I'll explain each file on the following sections.
 
 You can find the template used on this post in [this GitHub repository](TODO). 
 
+## Setup generic data
+
+First, we need a title and an author, don't we? That's the purpose of *metadata.yml*. Here's a example:
+
+```yml
+---
+title: My book title
+author: Daniel Herzog
+rights:  Creative Commons Attribution 4.0 International
+language: en-US
+tags: [book, my-book, etc]
+abstract: |
+  Your summary text.
+---
+```
+
+You get the idea, right? You can find the list of all available keys on [this page](http://pandoc.org/MANUAL.html#extension-yaml_metadata_block).
+
 ## Creating chapters
 
-...
+Creating a new chapter is as simple as creating a new markdown file in your *chapters/* folder. Something like this:
+
+```
+chapters/01-introduction.md
+chapters/02-installation.md
+chapters/03-usage.md
+chapters/04-references.md
+```
+
+Pandoc will join them automatically. All you need to specify is at least a title:
+
+```md
+# Introduction
+
+This is the first paragraph of the introduction chapter.
+
+## First
+
+This is the first subsection.
+
+## Second
+
+This is the second subsection.
+```
 
 ### Links between sections
 
