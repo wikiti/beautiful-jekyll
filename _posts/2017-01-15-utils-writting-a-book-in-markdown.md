@@ -155,7 +155,11 @@ To insert an image with a caption use Markdown syntax:
 
 Pandoc will automatically convert the image into a caption.
 
-...
+If you want to resize the image, you can use [Pandoc's 1.16](http://pandoc.org/releases.html#pandoc-1.16-02-jan-2016) new syntax for image dimensions:
+
+```md
+![Figure 1-1. A cool seagull.](images/seagull.png){ width=50% height=50% }
+```
 
 ### Insert a table
 
