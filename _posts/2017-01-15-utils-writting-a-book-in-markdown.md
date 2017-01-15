@@ -101,6 +101,22 @@ This is the second subsection.
 
 ...
 
+## Captions
+
+...
+
+### Insert an image
+
+...
+
+### Insert a table
+
+...
+
+### Insert a math formula
+
+...
+
 ## Output
 
 ...
