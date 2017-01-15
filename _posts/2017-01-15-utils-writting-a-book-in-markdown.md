@@ -215,19 +215,81 @@ $$\mu = \sum_{i=0}^{N} \frac{x_i}{N}$$
 
 ## Output
 
-...
+We'll be using a *Makefile* to automatize the building process. Instead of using the *pandoc cli util*, we're going to use some *make* commands. The *Makefile* looks like this:
+
+```make
+BUILD = build
+OUTPUT_FILENAME = book
+METADATA = metadata.yml
+CHAPTERS = chapters/*.md
+TOC = --toc --toc-depth=2
+COVER_IMAGE = images/cover.png
+LATEX_CLASS = report
+MATH_FORMULAS = --webtex
+
+all: book
+
+book: epub html pdf
+
+clean:
+	rm -r $(BUILD)
+
+epub: $(BUILD)/epub/$(OUTPUT_FILENAME).epub
+
+html: $(BUILD)/html/$(OUTPUT_FILENAME).html
+
+pdf: $(BUILD)/pdf/$(OUTPUT_FILENAME).pdf
+
+$(BUILD)/epub/$(OUTPUT_FILENAME).epub: $(METADATA) $(CHAPTERS)
+	mkdir -p $(BUILD)/epub
+	pandoc $(TOC) -S $(MATH_FORMULAS) --epub-metadata=$(METADATA) --epub-cover-image=$(COVER_IMAGE) -o $@ $^
+
+$(BUILD)/html/$(OUTPUT_FILENAME).html: $(CHAPTERS)
+	mkdir -p $(BUILD)/html
+	pandoc $(TOC) $(MATH_FORMULAS) --standalone --to=html5 -o $@ $^
+
+$(BUILD)/pdf/$(OUTPUT_FILENAME).pdf: $(METADATA) $(CHAPTERS)
+	mkdir -p $(BUILD)/pdf
+	pandoc $(TOC) $(MATH_FORMULAS) -V documentclass=$(LATEX_CLASS) -o $@ $^
+```
+
+Don't worry! If you're not familiarized with *make*, you don't need to actually understand how that works.
 
 ### Export to PDF
 
-...
+Use this command:
+
+```sh
+make pdf
+```
+
+The generated file will be placed in *build/pdf*.
+
+Please, note that PDF file generation requires some extra dependencies (~ 800 MB):
+
+```sh
+sudo apt-get install texlive-latex-base texlive-fonts-recommended texlive-latex-extra 
+```
 
 ### Export to EPUB
 
-...
+Use this command:
+
+```sh
+make epub
+```
+
+The generated file will be placed in *build/epub*.
 
 ### Export to HTML
 
-...
+Use this command:
+
+```sh
+make html
+```
+
+The generated file(s) will be placed in *build/html*.
 
 ### Configuring the style
 
