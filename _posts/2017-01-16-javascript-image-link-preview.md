@@ -13,7 +13,7 @@ In this post, I'm going to implement something similar with HTML, CSS and JavaSc
 
 ## Design
 
-The desired behaviour is basically the following:
+The desired behaviour is basically this:
 
 1. We seek for links on our post/comment/page/etc, and flag them with some kind of special identifier (a class, for example).
 2. When the user hovers that link, a popover is created with the link's image, reducing its size.
@@ -44,13 +44,15 @@ First, we need to create a modal box. That should be easy; it's just a `div`onta
 /* Popover box. */
 #image-preview {
   position: absolute;
+  overflow: hidden;
 
+  margin-top: 20px;
   padding: 5px;
 
   min-width: 100px;
-  max-width: 500px;
+  max-width: 400px;
   min-height: 100px;
-  max-height: 500px;
+  max-height: 400px;
 
   background-color: black;
   color: white;
@@ -58,6 +60,13 @@ First, we need to create a modal box. That should be easy; it's just a `div`onta
   z-index: 1;
 }
 
+/* Image preview tag. */
+#image-preview .image-preview-wrapper img {
+  max-width: 400px;
+  max-height: 400px;
+}
+
+/* Hidden helper. */
 .hidden {
   visibility: hidden;
 }
@@ -67,7 +76,40 @@ Now, our popover style is done. Of course, you can tweak the css as you like. Yo
 
 ### Auto converting links
 
-...
+We need a way to track our links. Imagine you have plain text comments. Something like this:
+
+```html
+<div class="comment">
+  Look at this image: http://www.example.com/image.png.
+</div>
+```
+
+Now, that link is not an anchor; is just text. If you are building an static website, you can tweak all links and transform them manually into something like this:
+
+```html
+<div class="comment">
+  Look at this image: <a class="image-preview-link" href="http://www.example.com/image.png">http://www.example.com/image.png</a>.
+</div>
+```
+
+But if you're working on a dynamic website, with real comments, we need to transform those *text-links* into real anchors. If this is your case, you'll probably need to setup that conversion either on the client side or server side.
+
+If you have some containers (like a `div` with a class `.comment`) with plain text, you can use this basic working example to transform links.
+
+```js
+// Wait for the DOM to load.
+$(document).ready(function() {
+  // This is a basic URL matches; it won't cover all cases.
+  var re = /(https?:\/\/(?:[a-z0-9\-]+\.)+[a-z0-9]{2,6}(?:\/[^/#?]+)+\.(?:jpg|jpeg|gif|png))/g;
+
+  // Search on all comments.
+  $('.comment').html(function () {
+    return $(this).html().replace(re, "<a href='$1'>$1</a>"); 
+  });
+});
+```
+
+You can find more advices to achieve this task on [this StackOverflow question](http://stackoverflow.com/questions/37684/how-to-replace-plain-urls-with-links).
 
 ### Showing the modal after hover
 
@@ -83,25 +125,23 @@ After hovering the mouse over it, we need to execute three actions:
 
 1. Place the popover **under** the image link.
 2. Create an image tag referencing the image, and clear previous ones.
-2. Show the popover.
+3. Show the popover.
 
 Which can be implemented with something like this:
 
 ```js
-$(document).on("hover", ".image-preview-link", function() {
+$(document).on("mouseover", ".image-preview-link", function() {
   // Step 1: Place the popover under the image link.
   // Note that `offset()` will return an object with the form `{ left: x, top: y }`
-  var position = $(this).offset(); 
+  var position = $(this).offset();
   $("#image-preview").css(position);
 
-  // Step 2: Create the image tag.
-  $("#image-preview image-preview-wrapper").empty().append(
-    $("<img>", { src: $(this).attr("href") })
-  );
-  ...
+  // Step 2: Clear previous images and create the new image tag.
+  var img = $("<img>", { src: $(this).attr("href") });
+  $("#image-preview .image-preview-wrapper").empty().append(img);
 
   // Step 3: Show the popover.
-  $("#image-preview").addClass("hidden");
+  $("#image-preview").removeClass("hidden");
 });
 ```
 
@@ -109,16 +149,46 @@ After unhovering the mouse over it, we need to undo the previous actions, which 
 
 1. Hide the popover.
 
-### Hidden the spinner after image load
+Which translates into javascript into something like this:
 
-...
+```js
+$(document).on("mouseout", ".image-preview-link", function() {
+  // Step 1: Hide the popover.
+  $("#image-preview").addClass("hidden");
+});
+```
+
+### Hidden the "Loading" message after image load
+
+After the image has been loaded (*.jpg* and small images will load ASAP), we need to remove the *"Loading..."* message, and show the image after it has been fully loaded. This can be achieved by adding a callback. When appending the image, add a `load()` callback to it:
+
+```js
+var img = $("<img>", { src: $(this).attr("href") });
+
+// NEW!
+$("#image-preview .loading").show();
+img.hide();
+
+img.load(function() {
+  $("#image-preview .loading").hide();
+  img.show();
+});
+// END NEW!
+
+$("#image-preview .image-preview-wrapper").empty().append(img);
+```
 
 ## Conclusion
 
-...
+Now, you can tweak your popover as you like. Here's a basic [working example on JSFiddle](https://jsfiddle.net/wikiti/4gf00hjv/):
 
-{JSFiddle example here}
+<iframe src="https://jsfiddle.net/wikiti/4gf00hjv/embedded/result"></iframe>
+
+TADA!
 
 ## References
 
-...
+- [jQuery](http://jquery.com)
+- [Imgur](http://imgur.com)
+
+Happy coding!
