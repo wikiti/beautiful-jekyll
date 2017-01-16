@@ -100,11 +100,13 @@ If you have some containers (like a `div` with a class `.comment`) with plain te
 // Wait for the DOM to load.
 $(document).ready(function() {
   // This is a basic URL matches; it won't cover all cases.
+  // Only basic urls that ends on .png, .gif, .jpg or .jpeg.
   var re = /(https?:\/\/(?:[a-z0-9\-]+\.)+[a-z0-9]{2,6}(?:\/[^/#?]+)+\.(?:jpg|jpeg|gif|png))/g;
 
-  // Search on all comments.
+  // Search on all comments, and replace the html of the matched links by ading anchor tags.
+  // The '$1' represents the matched text, which are the links found on the text.
   $('.comment').html(function () {
-    return $(this).html().replace(re, "<a href='$1'>$1</a>"); 
+    return $(this).html().replace(re, "<a class='image-preview-link' target='_blank' href='$1'>$1</a>"); 
   });
 });
 ```
@@ -113,7 +115,7 @@ You can find more advices to achieve this task on [this StackOverflow question](
 
 ### Showing the modal after hover
 
-Here's the tricky part! We need to show the modal after hovering the mouse over an image link. For example, imagine we've a link like this:
+Here's the tricky part! We need to show the modal after hovering the mouse over an image link. For example, imagine we've a tagged link like this:
 
 ```html
 <div class="comment">
@@ -184,7 +186,11 @@ Now, you can tweak your popover as you like. Here's a basic [working example on 
 
 <iframe src="https://jsfiddle.net/wikiti/4gf00hjv/embedded/result"></iframe>
 
-TADA!
+In summary:
+
+- You need to transform plain text links into anchor tags.
+- You need to validate that links are valid images (must end in *.png*, *.gif*...).
+- You can edit and setup your modal as you like.
 
 ## References
 
