@@ -189,7 +189,7 @@ $("#image-preview .image-preview-wrapper").empty().append(img);
 
 Now, you can tweak your popover as you like. Here's a basic [working example on JSFiddle](https://jsfiddle.net/wikiti/4gf00hjv/):
 
-<iframe  style="width: 100%; height: 550px" src="https://jsfiddle.net/wikiti/4gf00hjv/embedded/result,html,css,javascript"></iframe>
+<iframe  style="width: 100%; height: 550px" src="https://jsfiddle.net/wikiti/4gf00hjv/embedded/result,html,css,js"></iframe>
 
 In summary:
 
