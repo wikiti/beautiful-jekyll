@@ -1,6 +1,6 @@
 ---
 layout: post
-published: false
+published: true
 title: 'Javascript: Image link preview'
 subtitle: Like on Imgur's comments
 ---
